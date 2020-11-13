@@ -10,9 +10,10 @@ public class PhoneNumber  implements Serializable{
     private static final int minLengthOfCountryCode = 1;
     private static final int maxLengthOfCountryCode = 3;
 
-    final int countryCode;
-    final String mainNumber;
+    int countryCode;
+    String mainNumber;
 
+    public PhoneNumber(){}
     public PhoneNumber(int countryCode, String mainNumber)
             throws WrongNumberException{
         Objects.requireNonNull(mainNumber);

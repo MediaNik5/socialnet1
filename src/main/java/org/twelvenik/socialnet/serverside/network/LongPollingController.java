@@ -29,19 +29,18 @@ public class LongPollingController {
 	private static final List<Message> messageStore = new ArrayList<>();
 
 	@GetMapping("/request")
-	public ResponseEntity<Boolean> saveMessage(@RequestParam(value = "request") String requestString) {
-		System.out.println(requestString);
-
+	public ResponseEntity<ServerAnswer> saveMessage(@RequestParam(value = "details") String requestString) {
 		var request = ServerRequest.parseRequest(requestString);
 
 		var socialNetwork = SocialNetwork.getInstance().getRequestHandler();
 		try{
 			Objects.requireNonNull(request);
 			socialNetwork.handleRequest(request);
+			return ResponseEntity.ok(new ServerAnswer("Succeed"));
 		}catch(BadRequestException | NullPointerException e){
-			e.printStackTrace();
+			return ResponseEntity.ok(new ServerAnswer(e.getMessage(), false));
 		}
-		return ResponseEntity.ok(true);
+
 	}
 
 

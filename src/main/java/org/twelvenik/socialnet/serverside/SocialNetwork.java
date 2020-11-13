@@ -16,7 +16,7 @@ public class SocialNetwork {
 	private final ObjectMapper JSONMapper;
 	private final RequestHandler requestHandler;
 
-    public static void main(String... args){
+    public static void main(String[] args){
         SpringApplication.run(LongPollingController.class, args);
     }
 

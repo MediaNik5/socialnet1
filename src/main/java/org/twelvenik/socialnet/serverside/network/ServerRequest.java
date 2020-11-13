@@ -6,27 +6,32 @@ import org.twelvenik.socialnet.serverside.SocialNetwork;
 import org.twelvenik.socialnet.serverside.messaging.Chat;
 import org.twelvenik.socialnet.serverside.user.User;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ServerRequest{
+public class ServerRequest  implements Serializable{
 
+	long id;
 	String message;
-	Optional<Chat> receiver;
+	Chat receiver;
 	User sender;
 	RequestType requestType;
 
-	public ServerRequest(RequestType requestType, User sender, String message){
+	public ServerRequest(){ }
+
+	public ServerRequest(long id, RequestType requestType, User sender, String message){
+		this.id = id;
 		this.message = Objects.requireNonNull(message);
 		this.requestType = Objects.requireNonNull(requestType);
 		this.sender = Objects.requireNonNull(sender);
-		this.receiver = Optional.empty();
 	}
-	public ServerRequest(RequestType requestType, User sender, Chat receiver, String message){
+	public ServerRequest(long id, RequestType requestType, User sender, Chat receiver, String message){
+		this.id = id;
 		this.message = Objects.requireNonNull(message);
 		this.requestType = Objects.requireNonNull(requestType);
 		this.sender = Objects.requireNonNull(sender);
-		this.receiver = Optional.ofNullable(receiver);
+		this.receiver = receiver;
 	}
 
 
@@ -47,7 +52,7 @@ public class ServerRequest{
 		return Objects.requireNonNull(request);
 	}
 
-	public Optional<Chat> getReceiver(){ return receiver; }
+	public Chat getReceiver(){ return receiver; }
 	public String getMessage(){ return message; }
 	public User getSender(){ return sender;}
 	public RequestType getRequestType(){ return requestType; }
